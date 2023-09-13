@@ -142,13 +142,13 @@
                         <div class="header-action-icon-2">
                             <a href="shop-wishlist.php">
                                 <img alt="Surfside Media" src="{{asset('frontend')}}/assets/imgs/theme/icons/icon-heart.svg">
-                                <span class="pro-count white">4</span>
+                                <span class="pro-count white">40</span>
                             </a>
                         </div>
                         <div class="header-action-icon-2">
                             <a class="mini-cart-icon" href="cart.html">
                                 <img alt="Surfside Media" src="{{asset('frontend')}}/assets/imgs/theme/icons/icon-cart.svg">
-                                <span class="pro-count white">2</span>
+                                <span class="pro-count white">10</span>
                             </a>
                             <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                 <ul>
@@ -297,7 +297,7 @@
                     <a href="register.html">Sign Up</a>
                 </div>
                 <div class="single-mobile-header-info">
-                    <a href="#">(+1) 0000-000-000 </a>
+                    <a href="#"> 01717578265 </a>
                 </div>
             </div>
             <div class="mobile-social-icon">
@@ -349,6 +349,8 @@
 
 @stack('scripts')
 @livewireScripts
+
+
 
 </body>
 
