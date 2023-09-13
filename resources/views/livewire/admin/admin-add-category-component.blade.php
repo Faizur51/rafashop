@@ -19,7 +19,7 @@
                                         <div class="col-lg-12">
 
                                             <div class="input-style mb-2">
-                                                <label>Name</label>
+                                                <label>Category Name</label>
                                                 <input name="billing-email" placeholder="Email Category Name" type="text" class="square" wire:model="name" wire:keyup="generateSlug">
                                                 @error('name') <p class="text-danger">{{$message}}</p> @enderror
                                             </div>
@@ -29,27 +29,6 @@
                                                 <label>Slug</label>
                                                 <input name="billing-email" placeholder="Email Slug Name" type="text" class="square" wire:model="slug">
                                                 @error('slug') <p class="text-danger">{{$message}}</p> @enderror
-                                            </div>
-
-                                            <div class="input-style mb-2">
-                                                <label>top_category </label>
-                                                <select class="form-select" name="" id=""  wire:model="top_category">
-                                                    <option value="">Select Stock Status</option>
-                                                    <option value="1">Active</option>
-                                                    <option value="0">In Active</option>
-                                                </select>
-                                                @error('top_category') <p class="text-danger">{{$message}}</p> @enderror
-                                            </div>
-
-
-                                            <div class="input-style mb-2">
-                                                <label>popular_category </label>
-                                                <select class="form-select" name="" id=""  wire:model="popular_category">
-                                                    <option value="">Select Stock Status</option>
-                                                    <option value="1">Active</option>
-                                                    <option value="0">In Active</option>
-                                                </select>
-                                                @error('popular_category') <p class="text-danger">{{$message}}</p> @enderror
                                             </div>
 
                                             <div class="input-style mb-2">
@@ -63,15 +42,17 @@
                                                 @error('image') <p class="text-danger">{{$message}}</p> @enderror
                                             </div>
 
+
                                             <div class="input-style mb-2">
-                                                <label>status </label>
-                                                <select class="form-select" name="" id=""  wire:model="status">
-                                                    <option value="">Select Stock Status</option>
-                                                    <option value="1">Active</option>
-                                                    <option value="0">In Active</option>
+                                                <label>Parent Category</label>
+                                                <select name="" id="" class="form-control" wire:model="category_id">
+                                                    <option value="">None</option>
+                                                    @foreach($categories as $category)
+                                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                                    @endforeach
                                                 </select>
-                                                @error('status') <p class="text-danger">{{$message}}</p> @enderror
                                             </div>
+
                                             <button class="submit submit-auto-width" type="submit">Add Category</button>
                                         </div>
                                     </div>

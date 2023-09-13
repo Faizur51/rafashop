@@ -200,7 +200,7 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        <h5><a href="product-details.html">{{$item->model->name}}</a></h5>
+                                                        <h5><a href="#">{{ucwords($item->model->name)}}</a></h5>
                                                         <span class="product-qty">x {{$item->qty}}</span>
                                                     </td>
                                                     <td>&#2547; {{$item->subtotal()}}</td>
@@ -307,7 +307,7 @@
                                             @endif
                                         </td>
                                         <td class="product-des product-name">
-                                            <h5 class="product-name"><a href="product-details.html">{{$item->model->name}}</a></h5>
+                                            <h5 class="product-name"><a href="product-details.html">{{ucwords($item->model->name)}}</a></h5>
                                             {{-- <p class="font-xs">Maboriosam in a tonto nesciung eget<br> distingy magndapibus.</p>--}}
                                         </td>
                                         <td class="price" data-title="Price"><span>&#2547; {{$item->model->regular_price}} </span></td>

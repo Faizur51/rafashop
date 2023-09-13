@@ -125,7 +125,7 @@ class AdminEditProductComponent extends Component
 
         $product->save();
 
-        session()->flash('message', 'Product has been added successfully');
+        session()->flash('message', 'Product has been Updated Successfully');
 
 
 

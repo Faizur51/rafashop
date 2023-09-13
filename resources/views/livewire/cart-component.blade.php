@@ -1,4 +1,12 @@
 <div>
+    <style>
+        .fi-rs-trash:hover{
+            color:red !important;
+        }
+        .fi-rs-cross-small:hover{
+            color:red !important;
+        }
+    </style>
     <main class="main">
         <div class="page-header breadcrumb-wrap">
             <div class="container">
@@ -10,7 +18,7 @@
             </div>
         </div>
 
-        <section class="mt-50 mb-50">
+        <section class="mt-10 mb-10">
             @if(Cart::instance('cart')->count()>0)
             <div class="container">
                 <div class="row">
@@ -22,8 +30,8 @@
                                 </div>
                             @endif
                                 @if(Cart::instance('cart')->count()>0)
-                            <table class="table shopping-summery text-center ">
-                                <thead style="background-color: #f5f5f5">
+                            <table class="table shopping-summery text-center">
+                                <thead class="bg-light">
                                 <tr class="main-heading">
                                     <th scope="col">Image</th>
                                     <th scope="col">Name</th>
@@ -45,7 +53,6 @@
                                     </td>
                                     <td class="product-des product-name">
                                         <h5 class="product-name"><a href="{{route('product.details',['slug'=>$item->model->slug])}}">{{substr(ucwords($item->model->name),0,25)}}</a></h5>
-                                       {{-- <p class="font-xs">Maboriosam in a tonto nesciung eget<br> distingy magndapibus.</p>--}}
                                     </td>
                                     <td class="price" data-title="Price"><span>&#2547; {{$item->model->regular_price}} </span></td>
                                     <td class="text-center" data-title="Stock">
@@ -119,28 +126,28 @@
                                     <div class="table-responsive">
 
                                         @if(Session::has('coupon'))
-                                            <table class="table">
+                                            <table class="table ">
                                                 <tbody>
                                                 <tr>
-                                                    <td class="cart_total_label">Cart Subtotal</td>
+                                                    <td class="cart_total_label bg-light">Cart Subtotal</td>
                                                     <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">&#2547; {{Cart::instance('cart')->subtotal()}}</span></td>
                                                 </tr>
 
                                                 <tr>
-                                                    <td class="cart_total_label">Discount:Coupon Code:{{Session::get('coupon')['code']}}</td>
+                                                    <td class="cart_total_label bg-light">Discount:Coupon Code:{{Session::get('coupon')['code']}}</td>
                                                     <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">&#2547; {{number_format($discount,2)}}</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="cart_total_label">Subtotal with Discount</td>
+                                                    <td class="cart_total_label bg-light">Subtotal with Discount</td>
                                                     <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">&#2547; {{number_format($subtotalAfterDiscount,2)}}</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="cart_total_label">Tax({{config('cart.tax')}}%)</td>
+                                                    <td class="cart_total_label bg-light">Tax({{config('cart.tax')}}%)</td>
                                                     <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">&#2547; {{number_format($taxAfterDiscount,2)}}</span></td>
                                                 </tr>
 
                                                 <tr>
-                                                    <td class="cart_total_label">Total</td>
+                                                    <td class="cart_total_label bg-light">Total</td>
                                                     <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">&#2547; {{number_format($totalAfterDiscount,2)}}</span></strong></td>
                                                 </tr>
                                                 </tbody>
@@ -149,20 +156,20 @@
                                             <table class="table">
                                                 <tbody>
                                                 <tr>
-                                                    <td class="cart_total_label">Cart Subtotal</td>
+                                                    <td class="cart_total_label bg-light">Cart Subtotal</td>
                                                     <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">&#2547; {{Cart::instance('cart')->subtotal()}}</span></td>
                                                 </tr>
 
                                                 <tr>
-                                                    <td class="cart_total_label">Tax</td>
+                                                    <td class="cart_total_label bg-light">Tax</td>
                                                     <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">&#2547; {{Cart::instance('cart')->tax()}}</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="cart_total_label">Shipping</td>
+                                                    <td class="cart_total_label bg-light">Shipping</td>
                                                     <td class="cart_total_amount"> <i class="ti-gift mr-5"></i> Free Shipping</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="cart_total_label">Total</td>
+                                                    <td class="cart_total_label bg-light">Total</td>
                                                     <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">&#2547; {{Cart::instance('cart')->total()}}</span></strong></td>
                                                 </tr>
                                                 </tbody>
@@ -178,9 +185,11 @@
                 </div>
             </div>
             @else
-               <div class="text-center" style="padding: 30px 0">
+               <div class="text-center" style="padding: 5px 0">
                  <h1>Your Cart is empty</h1>
                    <p>Add items to it now!</p>
+                   <img src="{{asset('frontend\assets\images\cart/cart1.jpeg')}}" alt="" >
+                   <br>
                    <a href="/" class="btn btn-primary ">Shop Now</a>
                </div>
             @endif

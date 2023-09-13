@@ -17,8 +17,12 @@
                             </div>
                             <div class="col-lg-7 col-md-6">
                                 <div class="single-slider-img single-slider-img-1">
+                                    @if(strlen($slider->image)<30)
                                    <img class="animated slider-1-1" src="{{asset('frontend/assets/images/slider')}}/{{$slider->image}}" alt="">
-                                   <img class="animated slider-1-1" src="{{$slider->image}}" alt="">
+                                    @else
+                                        <img class="animated slider-1-1" src="{{$slider->image}}" alt="">
+                                    @endif
+
                                 </div>
                             </div>
                         </div>
@@ -100,12 +104,10 @@
                                            @if(strlen($fproduct->image)<30)
                                              <a href="{{route('product.details',['slug'=>$fproduct->slug])}}">
                                                 <img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$fproduct->image}}" alt="" style="height: 230px">
-                                                <img class="hover-img" src="{{asset('frontend')}}/assets/imgs/shop/product-1-2.jpg" alt="">
                                             </a>
                                              @else
                                                 <a href="{{route('product.details',['slug'=>$fproduct->slug])}}">
                                                     <img class="default-img" src="{{$fproduct->image}}" alt="" style="height: 270px" >
-                                                    <img class="hover-img" src="{{asset('frontend')}}/assets/imgs/shop/product-1-2.jpg" alt="" style="height: 270px">
                                                 </a>
                                             @endif
 
@@ -121,9 +123,9 @@
                                     </div>
                                     <div class="product-content-wrap">
                                         <div class="product-category">
-                                            <a href="shop.html">Clothing</a>
+                                            <a href="shop.html">{{ucwords($fproduct->category->name)}}</a>
                                         </div>
-                                        <h2><a href="{{route('product.details',['slug'=>$fproduct->slug])}}">{{ucwords($fproduct->name)}}</a></h2>
+                                        <h2><a href="{{route('product.details',['slug'=>$fproduct->slug])}}">{{substr(ucwords($fproduct->name),0,30)}}</a></h2>
                                         <div class="rating-result" title="90%">
                                             @php
                                             $loss=$fproduct->sale_price-$fproduct->regular_price;
@@ -791,11 +793,15 @@
 
                         <div class="card-1">
                             <figure class=" img-hover-scale overflow-hidden">
-                               {{-- <a href="shop.html"><img src="{{asset('frontend/assets/images/category')}}/{{$pcategory->image}}" alt=""></a>--}}
 
-                                <a href="{{route('product.category',['slug'=>$pcategory->slug])}}"><img src="{{$pcategory->image}}" alt="" style="height: 150px"></a>
+                                @if(strlen($pcategory->image)<30)
+                                    <a href="{{route('product.category',['category_slug'=>$pcategory->slug])}}"><img src="{{asset('frontend/assets/images/category')}}/{{$pcategory->image}}" alt="" style="height: 150px"></a>
+                                @else
+                                    <a href="{{route('product.category',['category_slug'=>$pcategory->slug])}}"><img src="{{$pcategory->image}}" alt="" style="height: 150px"></a>
+                                @endif
+
                             </figure>
-                            <h5><a href="{{route('product.category',['slug'=>$pcategory->slug])}}">{{ucwords($pcategory->name)}}</a></h5>
+                            <h5><a href="{{route('product.category',['category_slug'=>$pcategory->slug])}}">{{ucwords($pcategory->name)}}</a></h5>
                         </div>
                         @endforeach
                     </div>
@@ -805,36 +811,24 @@
         <section class="banners mb-15">
             <div class="container">
                 <div class="row">
+
+                  @foreach($lsliders as $lslider)
                     <div class="col-lg-4 col-md-6">
                         <div class="banner-img wow fadeIn animated">
-                            <img src="{{asset('frontend')}}/assets/imgs/banner/banner-1.png" alt="">
+                            @if(strlen($lslider->image)<30)
+                            <img src="{{asset('frontend/assets/images/slider')}}/{{$lslider->image}}" alt="" style="width: 600px;height: 200px">
+                            @else
+                                <img src="{{$lslider->image}}" alt="" style="width: 600px;height: 200px">
+                            @endif
                             <div class="banner-text">
-                                <span>Smart Offer</span>
-                                <h4>Save 20% on <br>Woman Bag</h4>
-                                <a href="shop.html">Shop Now <i class="fi-rs-arrow-right"></i></a>
+                                <span>{{$lslider->sub_title}}</span>
+                                <h4>Save {{$lslider->offer}}% on <br>{{$lslider->top_title}}</h4>
+                                <a href="{{$lslider->link}}">Shop Now <i class="fi-rs-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="banner-img wow fadeIn animated">
-                            <img src="{{asset('frontend')}}/assets/imgs/banner/banner-2.png" alt="">
-                            <div class="banner-text">
-                                <span>Sale off</span>
-                                <h4>Great Summer <br>Collection</h4>
-                                <a href="shop.html">Shop Now <i class="fi-rs-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 d-md-none d-lg-flex">
-                        <div class="banner-img wow fadeIn animated  mb-sm-0">
-                            <img src="{{asset('frontend')}}/assets/imgs/banner/banner-3.png" alt="">
-                            <div class="banner-text">
-                                <span>New Arrivals</span>
-                                <h4>Shop Today’s <br>Deals & Offers</h4>
-                                <a href="shop.html">Shop Now <i class="fi-rs-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+
                 </div>
             </div>
         </section>
@@ -845,7 +839,6 @@
                     <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow" id="carausel-6-columns-2-arrows"></div>
                     <div class="carausel-6-columns carausel-arrow-center" id="carausel-6-columns-2">
                         @foreach($lproducts as $lproduct)
-
                         <div class="product-cart-wrap small hover-up">
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
@@ -853,12 +846,10 @@
                                     @if(strlen($lproduct->image)<30)
                                     <a href="{{route('product.details',['slug'=>$lproduct->slug])}}">
                                         <img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$lproduct->image}}" alt="">
-                                        <img class="hover-img" src="{{asset('frontend')}}/assets/imgs/shop/product-2-2.jpg" alt="">
                                     </a>
                                    @else
                                     <a href="{{route('product.details',['slug'=>$lproduct->slug])}}">
                                         <img class="default-img" src="{{$lproduct->image}}" alt="" style="height: 190px">
-                                        <img class="hover-img" src="{{asset('frontend')}}/assets/imgs/shop/product-2-2.jpg" alt="">
                                     </a>
                                  @endif
                                 </div>
@@ -872,7 +863,7 @@
                                 </div>
                             </div>
                             <div class="product-content-wrap">
-                                <h2><a href="{{route('product.details',['slug'=>$lproduct->slug])}}">{{ucwords($lproduct->name)}}</a></h2>
+                                <h2><a href="{{route('product.details',['slug'=>$lproduct->slug])}}">{{substr(ucwords($lproduct->name),0,20)}}</a></h2>
 
                                 @php
                                     $loss=$lproduct->sale_price-$lproduct->regular_price;

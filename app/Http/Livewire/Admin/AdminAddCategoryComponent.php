@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Category;
+use App\Models\Subcategory;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -14,11 +15,9 @@ class AdminAddCategoryComponent extends Component
 
     public $name;
     public $slug;
-    public $top_category;
-    public $popular_category;
     public $image;
-    public $status;
 
+    public $category_id;
 
     public function generateSlug(){
         $this->slug=Str::slug($this->name);
@@ -29,9 +28,6 @@ class AdminAddCategoryComponent extends Component
         $this->validateOnly($fields,[
             'name' => 'required',
             'slug' => 'required',
-            'top_category' => 'required',
-            'popular_category' => 'required',
-            'status' => 'required',
             'image' => 'required',
         ]);
     }
@@ -42,27 +38,27 @@ class AdminAddCategoryComponent extends Component
         $this->validate([
             'name' => 'required',
             'slug' => 'required',
-            'top_category' => 'required',
-            'popular_category' => 'required',
-            'status' => 'required',
             'image' => 'required',
         ]);
 
 
-        $category = new Category();
-        $category->name = $this->name;
-        $category->slug = $this->slug;
-        $category->top_category = $this->top_category;
-        $category->popular_category = $this->popular_category;
-        $category->status = $this->status;
 
-        $imageName = Carbon::now()->timestamp . '.' . $this->image->extension();
-        $this->image->storeAs('category', $imageName);
+        if($this->category_id){
+           $scategory=new Subcategory();
+           $scategory->name=$this->name;
+           $scategory->slug=$this->slug;
+           $scategory->category_id=$this->category_id;
+           $scategory->save();
 
-
-        $category->image = $imageName;
-
-        $category->save();
+        }else{
+            $category = new Category();
+            $category->name = $this->name;
+            $category->slug = $this->slug;
+            $imageName = Carbon::now()->timestamp . '.' . $this->image->extension();
+            $this->image->storeAs('category', $imageName);
+            $category->image = $imageName;
+            $category->save();
+        }
 
         session()->flash('message', 'Category has been added');
 
@@ -73,6 +69,7 @@ class AdminAddCategoryComponent extends Component
 
     public function render()
     {
-        return view('livewire.admin.admin-add-category-component');
+        $categories=Category::all();
+        return view('livewire.admin.admin-add-category-component',['categories'=>$categories]);
     }
 }

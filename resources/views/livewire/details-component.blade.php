@@ -413,11 +413,9 @@
                                                     <div class="product-img product-img-zoom">
                                                         <a href="{{route('product.details',['slug'=>$rproduct->slug])}}" tabindex="0">
                                                             @if(strlen($rproduct->image)<30)
-                                                            <img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$rproduct->image}}" alt="">
-                                                          {{--  <img class="hover-img" src="{{asset('frontend')}}/assets/imgs/shop/product-2-2.jpg" alt="">--}}
+                                                                <img class="default-img" src="{{asset('frontend/assets/images/product')}}/{{$rproduct->image}}" alt="" style="height: 190px;width: 224px">
                                                             @else
-                                                                <img class="default-img" src="{{$rproduct->image}}" alt="">
-                                                                {{--<img class="hover-img" src="{{asset('frontend')}}/assets/imgs/shop/product-2-2.jpg" alt="">--}}
+                                                                <img class="default-img" src="{{$rproduct->image}}" alt="" style="height: 224px;width: 224px">
                                                             @endif
                                                         </a>
                                                     </div>
@@ -431,7 +429,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-content-wrap">
-                                                    <h2><a href="{{route('product.details',['slug'=>$rproduct->slug])}}" tabindex="0">{{ucwords($rproduct->name)}}</a></h2>
+                                                    <h2><a href="{{route('product.details',['slug'=>$rproduct->slug])}}" tabindex="0">{{substr(ucwords($rproduct->name),0,20)}}</a></h2>
                                                     <div class="rating-result" title="90%">
                                                         <span>
                                                         </span>
@@ -453,10 +451,9 @@
                         <div class="widget-category mb-30">
                             <h5 class="section-title style-1 mb-30 wow fadeIn animated">Delivery</h5>
                             <ul class="categories">
-                                <li><a href="shop.html">Cash on Delivery Available</a></li>
-                                <li><a href="shop.html">7 Day Return
-                                        Change of mind applicable</a></li>
-                                <li><a href="shop.html">Warranty not available</a></li>
+                                <li><a href="#">Cash on Delivery Available</a></li>
+                                <li><a href="#">7 Day Return applicable</a></li>
+                                <li><a href="#">Warranty not available</a></li>
                             </ul>
                         </div>
 
@@ -490,6 +487,4 @@
             </div>
         </section>
     </main>
-
-
 </div>

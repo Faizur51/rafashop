@@ -17,10 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->boolean('top_category')->default(1);
-            $table->boolean('popular_category')->default(1);
             $table->string('image')->nullable();
-            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

@@ -30,33 +30,13 @@
                                             <div class="row">
                                                 <div class="form-group col-md-12">
                                                     <label>Category Name <span class="required">*</span></label>
-                                                    <input  class="form-control square" placeholder="Enter Category name" type="text" wire:model="name">
+                                                    <input  class="form-control square" placeholder="Enter Category name" type="text" wire:model="name" wire:keyup="generateSlug">
                                                     @error('name') <p class="text-danger">{{$message}}</p> @enderror
                                                 </div>
                                                 <div class="form-group col-md-12">
                                                     <label>Slug <span class="required">*</span></label>
                                                     <input  class="form-control square" placeholder="Enter Slug" type="text" wire:model="slug">
                                                     @error('slug') <p class="text-danger">{{$message}}</p> @enderror
-                                                </div>
-
-                                                <div class="form-group col-md-12">
-                                                    <label>Top Category<span class="required">*</span></label>
-                                                    <select class="form-select" wire:model="top_category">
-                                                        <option value="">Select Top Category</option>
-                                                        <option value="1">Active</option>
-                                                        <option value="0">InActive</option>
-                                                    </select>
-                                                    @error('top_category') <p class="text-danger">{{$message}}</p> @enderror
-                                                </div>
-
-                                                <div class="form-group col-md-12">
-                                                    <label>Popular Category<span class="required">*</span></label>
-                                                    <select class="form-select" wire:model="popular_category">
-                                                        <option value="">Select Popular Category</option>
-                                                        <option value="1">Active</option>
-                                                        <option value="0">InActive</option>
-                                                    </select>
-                                                    @error('popular_category') <p class="text-danger">{{$message}}</p> @enderror
                                                 </div>
 
                                                 <div class="form-group col-md-12">
@@ -72,15 +52,16 @@
                                                     @error('image') <p class="text-danger">{{$message}}</p> @enderror
                                                 </div>
 
-                                                <div class="form-group col-md-12">
-                                                    <label>Status<span class="required">*</span></label>
-                                                    <select class="form-select" wire:model="status">
-                                                        <option value="">Select Status</option>
-                                                        <option value="1">Active</option>
-                                                        <option value="0">InActive</option>
+                                                <div class="input-style mb-2">
+                                                    <label>Parent Category</label>
+                                                    <select name="" id="" class="form-control" wire:model="category_id">
+                                                        <option value="">None</option>
+                                                        @foreach($categories as $category)
+                                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                                        @endforeach
                                                     </select>
-                                                    @error('status') <p class="text-danger">{{$message}}</p> @enderror
                                                 </div>
+
                                                 <div class="col-md-12">
                                                     <button type="submit" class="btn btn-fill-out submit" name="submit" value="Submit">Update Category</button>
                                                 </div>

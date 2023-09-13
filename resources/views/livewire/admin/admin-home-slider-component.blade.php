@@ -33,13 +33,19 @@
                                             @foreach($sliders as $slider)
                                             <tr>
                                                 <td>{{$slider->id}}</td>
-                                                <td>{{$slider->top_title}}</td>
-                                                <td>{{$slider->title}}</td>
+                                                <td>{{ucwords($slider->top_title)}}</td>
+                                                <td>{{ucwords($slider->title)}}</td>
                                                 <td>{{$slider->sub_title}}</td>
-                                                <td>{{$slider->offer}}</td>
+                                                <td>{{ucwords($slider->offer)}}</td>
                                                 <td>{{$slider->link}}</td>
-                                                <td><img src="{{ asset('frontend/assets/images/slider')}}/{{$slider->image}}" style="width: 50px;height: 50px"></td>
-                                                <td>{{$slider->status}}</td>
+                                                <td>
+                                                    @if(strlen($slider->image)<30)
+                                                        <img src="{{ asset('frontend/assets/images/slider')}}/{{$slider->image}}" style="width: 50px;height: 50px">
+                                                    @else
+                                                        <img src="{{$slider->image}}" style="width: 50px;height: 50px">
+                                                    @endif
+                                                </td>
+                                                <td>{{$slider->status ==1 ?'Active':'Inactive'}}</td>
                                                 <td><a href="{{route('admin.home.slider.edit',['slider_id'=>$slider->id])}}" class="btn-small">Edit</a></td>
                                                 <td><button type="button" wire:click="deleteId({{ $slider->id }})" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
                                             </tr>

@@ -10,7 +10,7 @@ class AdminHomeSliderComponent extends Component
     use WithPagination;
 
     public $deleteId = '';
-
+    protected $paginationTheme = 'bootstrap';
 
     public function deleteId($id)
     {
@@ -23,7 +23,7 @@ class AdminHomeSliderComponent extends Component
 
         $slider=HomeSlider::find($this->deleteId);
 
-        
+
         if($slider->image){
             unlink('frontend/assets/images/slider/'.$slider->image);
         }

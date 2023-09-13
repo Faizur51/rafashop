@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
+            $table->string('slug')->unique();
             $table->enum('type',['fixed','percent']);
             $table->decimal('value');
             $table->string('cart_value');

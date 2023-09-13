@@ -28,8 +28,8 @@ Route::get('/cart',\App\Http\Livewire\CartComponent::class)->name('shop.cart');
 
 Route::get('/checkout',\App\Http\Livewire\CheckoutComponent::class)->name('shop.checkout');
 
-//product as category
-Route::get('/product-category/{slug}',\App\Http\Livewire\CategoryComponent::class)->name('product.category');
+//product as category & subcategory
+Route::get('/product-category/{category_slug}/{scategory_slug?}',\App\Http\Livewire\CategoryComponent::class)->name('product.category');
 
 
 Route::get('/product/search',\App\Http\Livewire\SearchProductComponent::class)->name('product.search');
@@ -58,7 +58,7 @@ Route::middleware(['auth','authadmin'])->group(function(){
 
     Route::get('admin/category',\App\Http\Livewire\Admin\AdminCategoryComponent::class)->name('admin.category');
     Route::get('admin/category/add',\App\Http\Livewire\Admin\AdminAddCategoryComponent::class)->name('admin.category.add');
-    Route::get('admin/category/edit/{category_id}',\App\Http\Livewire\Admin\AdminEditCategoryComponent::class)->name('admin.category.edit');
+    Route::get('admin/category/edit/{category_slug}/{scategory_slug?}',\App\Http\Livewire\Admin\AdminEditCategoryComponent::class)->name('admin.category.edit');
 
 
     Route::get('admin/product',\App\Http\Livewire\Admin\AdminProductComponent::class)->name('admin.product');
@@ -66,6 +66,9 @@ Route::middleware(['auth','authadmin'])->group(function(){
     Route::get('admin/product/edit/{product_slug}',\App\Http\Livewire\Admin\AdminEditProductComponent::class)->name('admin.product.edit');
 
     Route::get('admin/setting',\App\Http\Livewire\Admin\AdminSettingComponent::class)->name('admin.setting');
+
+    Route::get('admin/coupon',\App\Http\Livewire\Admin\AdminCouponComponent::class)->name('admin.coupon');
+    Route::get('admin/coupon/add',\App\Http\Livewire\Admin\AdminAddCouponComponent::class)->name('admin.coupon.add');
 
 });
 

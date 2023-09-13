@@ -22,16 +22,18 @@ return new class extends Migration
             $table->decimal('regular_price',8,2);
             $table->decimal('sale_price',8,2)->nullable();
             $table->string('sku');
-            $table->enum('stock_status',['instock','outstock']);
+            $table->boolean('stock_status')->default(true);
             $table->boolean('featured')->default(true);
-            $table->unsignedInteger('quantity')->default(10);
+            $table->unsignedInteger('quantity')->nullable();
             $table->string('color')->default('[]');
             $table->string('size')->default('[]');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->text('images')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('subcategory_id')->nullable();
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->cascadeOnDelete();
+            $table->foreign('subcategory_id')->references('id')->on('subcategories')->cascadeOnDelete();
         });
     }
 

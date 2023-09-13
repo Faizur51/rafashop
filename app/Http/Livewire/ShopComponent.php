@@ -11,6 +11,7 @@ class ShopComponent extends Component
 {
     use WithPagination;
 
+    protected $paginationTheme = 'bootstrap';
     public $pageSize=12;
     public $orderby='Default sorting';
 
@@ -22,8 +23,10 @@ class ShopComponent extends Component
      //item add into the cart
     public function store($product_id,$product_name,$product_price){
         Cart::instance('cart')->add($product_id,$product_name,1,$product_price)->associate('\App\Models\Product');
-        session()->flash('success_message','Item added into the cart');
-        return redirect()->route('shop.cart');
+        //session()->flash('success_message','Item added into the cart');
+        //return redirect()->route('shop.cart');
+        $this->emitTo('cart-icon-component','refreshComponent');
+        noty()->progressBar(false)->layout('topRight')->addInfo('Item added into the cart.');
     }
 
 
@@ -54,7 +57,8 @@ public function changeOrderBy($order){
 
         $categories=Category::orderBy('name','asc')->get();
 
-        return view('livewire.shop-component',['products'=>$products,'categories'=>$categories]);
+        $nproducts=Product::latest()->take(4)->get();
+        return view('livewire.shop-component',['products'=>$products,'categories'=>$categories,'nproducts'=>$nproducts]);
 
     }
 }

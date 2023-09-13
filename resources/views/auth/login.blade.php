@@ -77,10 +77,16 @@
                                         <div class="heading_s1">
                                             <h3 class="mb-30">Login</h3>
                                         </div>
+                                        <!-- Session Status -->
+                                        <x-auth-session-status class="mb-4 text-danger" :status="session('status')" />
+
+                                        <!-- Validation Errors -->
+                                        <x-auth-validation-errors class="mb-4 text-danger" :errors="$errors" />
+
                                         <form method="POST" action="{{ route('login') }}">
                                             @csrf
                                             <div class="form-group">
-                                                <input type="text"  placeholder="Your Email" name="email" :value="old('email')" required autofocus>
+                                                <input type="email"  placeholder="Your Email" name="email" :value="old('email')" required autofocus>
                                             </div>
                                             <div class="form-group">
                                                 <input  type="password"  placeholder="Password" name="password" required autocomplete="current-password">
@@ -92,7 +98,9 @@
                                                         <label class="form-check-label" for="exampleCheckbox1"><span>Remember me</span></label>
                                                     </div>
                                                 </div>
-                                                <a class="text-muted" href="#">Forgot password?</a>
+                                                @if (Route::has('password.request'))
+                                                <a class="text-muted" href="{{ route('password.request') }}">Forgot password?</a>
+                                                @endif
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-fill-out btn-block hover-up">Log in</button>

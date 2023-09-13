@@ -16,42 +16,45 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="input-style mb-2">
-                                                <label>name </label>
-                                                <input name="name-id" placeholder="Found in your order confirmation email" type="text" class="square" wire:model="name" wire:keyup="generateSlug">
+                                                <label>Name </label>
+                                                <input name="name-id" placeholder="Product Name" type="text" class="square" wire:model="name" wire:keyup="generateSlug">
                                                 @error('name') <p class="text-danger">{{$message}}</p> @enderror
                                             </div>
                                             <div class="input-style mb-2">
-                                                <label>slug</label>
+                                                <label>Slug</label>
                                                 <input name="billing-email" placeholder="Email you used during checkout" type="text" class="square" wire:model="slug" >
                                                 @error('slug') <p class="text-danger">{{$message}}</p> @enderror
                                             </div>
                                             <div class="input-style mb-2">
-                                                <label>short_description</label>
-                                                <div wire:ignore>
-                                                    <div id="short_description" wire:model="short_description">{!!$short_description!!}</div>
-                                                </div>
+                                                <label>Short Description</label>
+                                                   <div wire:ignore>
+                                                       {{--<textarea  class="form-control" id="sdescription" wire:model="short_description"></textarea>--}}
+                                                       <div id="editor1" wire:model="short_description">{!!$short_description!!}</div>
+                                                 </div>
+
                                                 @error('short_description') <p class="text-danger">{{$message}}</p> @enderror
                                             </div>
                                             <div class="input-style mb-2">
-                                                <label>Long description</label>
+                                                <label>Long Description</label>
                                                 <div wire:ignore>
-                                                    <div id="description" wire:model="description">{!!$description!!}</div>
+                                              {{--   <div id="description" wire:model.defer="description">{!!$description!!}</div>--}}
+                                                    <div id="editor2" wire:model="description">{!!$description!!}</div>
                                                 </div>
                                                 @error('description') <p class="text-danger">{{$message}}</p> @enderror
                                             </div>
                                             <div class="input-style mb-2">
-                                                <label>regular_price</label>
-                                                <input name="billing-email" placeholder="Email you used during checkout" type="text" class="square" wire:model="regular_price">
+                                                <label>Regular Price</label>
+                                                <input name="billing-email" placeholder="Regular Price" type="text" class="square" wire:model="regular_price">
                                                 @error('regular_price') <p class="text-danger">{{$message}}</p> @enderror
                                             </div>
                                             <div class="input-style mb-2">
-                                                <label>sale_price</label>
-                                                <input name="billing-email" placeholder="Email you used during checkout" type="text" class="square" wire:model="sale_price">
+                                                <label>Sale Price</label>
+                                                <input name="billing-email" placeholder="Sale Price" type="text" class="square" wire:model="sale_price">
                                                 @error('sale_price') <p class="text-danger">{{$message}}</p> @enderror
                                             </div>
                                             <div class="input-style mb-2">
-                                                <label>sku</label>
-                                                <input name="billing-email" placeholder="Email you used during checkout" type="text" class="square" wire:model="sku">
+                                                <label>SKU</label>
+                                                <input name="billing-email" placeholder="SKU Code" type="text" class="square" wire:model="sku">
                                                 @error('sku') <p class="text-danger">{{$message}}</p> @enderror
                                             </div>
                                         </div>
@@ -69,7 +72,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="input-style mb-2">
-                                                <label>stock_status </label>
+                                                <label>Stock Status </label>
                                                 <select class="form-select" name="" id=""  wire:model="stock_status">
                                                     <option value="">Select Stock Status</option>
                                                     <option value="1">In Stock</option>
@@ -79,9 +82,9 @@
                                             </div>
 
                                             <div class="input-style mb-2">
-                                                <label>featured </label>
+                                                <label>Featured </label>
                                                 <select class="form-select" name="" id=""  wire:model="featured">
-                                                    <option value="">Select Stock Status</option>
+                                                    <option value="">Select Featured</option>
                                                     <option value="1">Yes</option>
                                                     <option value="0">No</option>
                                                 </select>
@@ -89,12 +92,12 @@
                                             </div>
 
                                             <div class="input-style mb-2">
-                                                <label>quantity</label>
-                                                <input name="billing-email" placeholder="Email you used during checkout" type="text" class="square" wire:model="quantity">
+                                                <label>Quantity</label>
+                                                <input name="billing-email" placeholder="Quantity" type="text" class="square" wire:model="quantity">
                                                 @error('quantity') <p class="text-danger">{{$message}}</p> @enderror
                                             </div>
                                             <div class="input-style mb-2">
-                                                <label>image</label>
+                                                <label>Image</label>
                                                 <input  class="form-control square" placeholder="Enter Image" type="file" wire:model="newimage">
 
                                                 @if($newimage)
@@ -106,8 +109,8 @@
                                             </div>
 
                                             <div class="input-style mb-2">
-                                                <label>Galary image</label>
-                                                <input  class="form-control square" placeholder="Enter Image" type="file" wire:model="newimages" multiple>
+                                                <label>Galary Image</label>
+                                                <input  class="form-control square" placeholder="Galary Image" type="file" wire:model="newimages" multiple>
 
                                                 @if($newimages)
                                                    @foreach($newimages as $newimage)
@@ -122,17 +125,14 @@
                                                         @endif
                                                    @endforeach
                                                 @endif
-
                                             </div>
 
-
-
                                             <div class="input-style mb-2">
-                                                <label>category_id </label>
+                                                <label>Category Name</label>
                                                 <select class="form-select" name="" id=""  wire:model="category_id">
                                                     <option value="">Select Category</option>
                                                     @foreach($categories as $category)
-                                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                                        <option value="{{$category->id}}">{{ucwords($category->name)}}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('category_id') <p class="text-danger">{{$message}}</p> @enderror
@@ -153,47 +153,27 @@
 @push('scripts')
 
     <script>
-        $(function(){
-            $('#short_description').summernote({
-                tabsize: 2,
-                height: 120,
-                toolbar: [
-                    ['style', ['style']],
-                    ['font', ['bold', 'underline', 'clear']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['table', ['table']],
-                    ['insert', ['link', 'picture', 'video']],
-                    ['view', ['fullscreen', 'codeview', 'help']]
-                ],
-                callbacks: {
-                    onChange: function (contents, $editable) {
-                    @this.set('short_description', contents);
-                    }
-                }
+        ClassicEditor
+            .create(document.querySelector('#editor1'))
+            .then(editor => {
+                editor.model.document.on('change:data', () => {
+                @this.set('short_description', editor.getData());
+                })
+            })
+            .catch(error => {
+                console.error(error);
             });
-        })
 
-        $(function (){
-            $('#description').summernote({
-                tabsize: 2,
-                height: 120,
-                toolbar: [
-                    ['style', ['style']],
-                    ['font', ['bold', 'underline', 'clear']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['table', ['table']],
-                    ['insert', ['link', 'picture', 'video']],
-                    ['view', ['fullscreen', 'codeview', 'help']]
-                ],
-                callbacks: {
-                    onChange: function (contents, $editable) {
-                    @this.set('description', contents);
-                    }
-                }
+        ClassicEditor
+            .create(document.querySelector('#editor2'))
+            .then(editor => {
+                editor.model.document.on('change:data', () => {
+                @this.set('description', editor.getData());
+                })
+            })
+            .catch(error => {
+                console.error(error);
             });
-        })
 
     </script>
 @endpush

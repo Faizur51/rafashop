@@ -1,4 +1,10 @@
 <div class="container">
+    <style>
+        .sclist li{
+                  line-height: 33px;
+                  border-bottom: 1px solid #ccc;
+        }
+    </style>
     <div class="row">
         <div class="col-lg-12 m-auto mt-50 mb-50">
             <div class="row">
@@ -31,10 +37,8 @@
                                                 <th>Sl</th>
                                                 <th>Name</th>
                                                 <th>Slug</th>
-                                                <th>Top Category</th>
-                                                <th>Popular Category</th>
                                                 <th>Image</th>
-                                                <th>Status</th>
+                                                <th>Sub Category</th>
                                                 <th class="text-center" colspan="2">Action</th>
                                             </tr>
                                             </thead>
@@ -43,14 +47,29 @@
                                             @foreach($categories as $category)
                                                 <tr>
                                                     <td>{{$category->id}}</td>
-                                                    <td>{{$category->name}}</td>
+                                                    <td>{{ucwords($category->name)}}</td>
                                                     <td>{{$category->slug}}</td>
-                                                    <td>{{$category->top_category}}</td>
-                                                    <td>{{$category->popular_category}}</td>
-                                                    <td><img src="{{ asset('frontend/assets/images/category')}}/{{$category->image}}" style="width: 50px;height: 50px"></td>
-                                                    <td>{{$category->status}}</td>
-                                                    <td><a href="{{route('admin.category.edit',['category_id'=>$category->id])}}" class="btn-small">Edit</a></td>
-                                                    <td><button type="button" wire:click="deleteId({{ $category->id }})" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
+                                                    <td>
+                                                        @if(strlen($category->image)<30)
+                                                            <img src="{{ asset('frontend/assets/images/category')}}/{{$category->image}}" style="width: 50px;height: 50px">
+                                                        @else
+                                                            <img src="{{$category->image}}" style="width: 50px;height: 50px">
+                                                        @endif
+                                                    </td>
+
+                                                    <td>
+                                                        <ul class="sclist">
+                                                            @foreach($category->subCategories as $scategory)
+                                                            <li><i class="fi-rs-caret-right"></i>{{ucwords($scategory->name)}}
+                                                                <a href="{{route('admin.category.edit',['category_slug'=>$category->slug,'scategory_slug'=>$scategory->slug])}}" class="ml-5"><i class="fi-rs-edit"></i></a>
+                                                                <a href=""  onclick="confirm('Are you sure,you want to delete this subcategory ?') || event.stopImmediatePropagation()" wire:click.prevent="deleteSubcategory({{$scategory->id}})" class="ml-5"><i class="fi-rs-trash"></i></a>
+                                                            </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </td>
+
+                                                    <td><a href="{{route('admin.category.edit',['category_slug'=>$category->slug])}}" class="btn btn-sm"><i class="fi-rs-edit"></i></a></td>
+                                                    <td><button type="button" wire:click="deleteId({{ $category->id }})" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-sm"><i class="fi-rs-trash"></i></button></td>
                                                 </tr>
                                             @endforeach
                                             </tbody>
@@ -75,8 +94,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>

@@ -65,12 +65,12 @@
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
-                    <a href="index.html" rel="nofollow">Home</a>
+                    <a href="/" rel="nofollow">Home</a>
                     <span></span> Register
                 </div>
             </div>
         </div>
-        <section class="pt-150 pb-150">
+        <section class="pt-50 pb-50">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 m-auto">
@@ -81,6 +81,7 @@
                                         <div class="heading_s1">
                                             <h3 class="mb-30">Create an Account</h3>
                                         </div>
+                                        <x-auth-validation-errors class="mb-4 text-danger" :errors="$errors" />
                                         <form method="POST" action="{{ route('register') }}">
                                             @csrf
                                             <div class="form-group">
