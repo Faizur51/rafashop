@@ -161,7 +161,6 @@
                                 <h5 class="widget-title mb-10">New products</h5>
                                 <div class="bt-1 border-color-1"></div>
                             </div>
-
                             @foreach($nproducts as $nproduct)
                             <div class="single-post clearfix">
                                 <div class="image">

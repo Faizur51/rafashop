@@ -11,12 +11,19 @@ class SearchProductComponent extends Component
 {
     use WithPagination;
 
+    protected $paginationTheme='bootstrap';
     public $pageSize=12;
     public $orderby='Default sorting';
 
 
     public $q;
     public $search_term;
+
+    public $min_value=0;
+    public $max_value=100000;
+
+
+
     public function mount(){
         $this->fill(request()->only('q'));
         $this->search_term= '%'.$this->q.'%';
@@ -43,22 +50,22 @@ class SearchProductComponent extends Component
     {
         if($this->orderby=='Price: Low to High')
         {
-            $products=Product::where('name','like',$this->search_term)->orderBy('regular_price','asc')->paginate($this->pageSize);
+            $products=Product::whereBetween('regular_price',[$this->min_value,$this->max_value])->where('name','like',$this->search_term)->orderBy('regular_price','asc')->paginate($this->pageSize);
 
         }else if($this->orderby=='Price: High to Low')
         {
-            $products=Product::where('name','like',$this->search_term)->orderBy('regular_price','desc')->paginate($this->pageSize);
+            $products=Product::whereBetween('regular_price',[$this->min_value,$this->max_value])->where('name','like',$this->search_term)->orderBy('regular_price','desc')->paginate($this->pageSize);
         }
         else if($this->orderby=='Short buy newness'){
-            $products=Product::where('name','like',$this->search_term)->orderBy('created_at','desc')->paginate($this->pageSize);
+            $products=Product::whereBetween('regular_price',[$this->min_value,$this->max_value])->where('name','like',$this->search_term)->orderBy('created_at','desc')->paginate($this->pageSize);
         }
         else{
-            $products=Product::where('name','like',$this->search_term)->paginate($this->pageSize);
+            $products=Product::whereBetween('regular_price',[$this->min_value,$this->max_value])->where('name','like',$this->search_term)->paginate($this->pageSize);
         }
 
         $categories=Category::orderBy('name','asc')->get();
-
-        return view('livewire.search-product-component',['products'=>$products,'categories'=>$categories]);
+        $nproducts=Product::latest()->take(4)->get();
+        return view('livewire.search-product-component',['products'=>$products,'categories'=>$categories,'nproducts'=>$nproducts]);
 
     }
 }

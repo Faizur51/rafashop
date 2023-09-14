@@ -1,4 +1,11 @@
 <section class="pt-10 pb-10">
+    <style>
+        .custom_select .select2-container {
+            max-width: 583px;
+        }
+    </style>
+
+
     <div class="container">
         <div class="row">
             <div class="col-lg-10 m-auto">
@@ -71,26 +78,28 @@
                                 <div class="card-body contact-from-area">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <div class="input-style mb-2">
-                                                <label>Stock Status </label>
-                                                <select class="form-select" name="" id=""  wire:model="stock_status">
-                                                    <option value="">Select Stock Status</option>
-                                                    <option value="1">In Stock</option>
-                                                    <option value="0">Out Stock</option>
-                                                </select>
+
+                                            <div class="form-group" >
+                                                <div class="custom_select" wire:ignore >
+                                                    <select name="" id="" class="form-control select-active" wire:model="stock_status">
+                                                        <option value="">Select Stock Status</option>
+                                                        <option value="1">In Stock</option>
+                                                        <option value="0">Out Stock</option>
+                                                    </select>
+                                                </div>
                                                 @error('stock_status') <p class="text-danger">{{$message}}</p> @enderror
                                             </div>
 
-                                            <div class="input-style mb-2">
-                                                <label>Featured </label>
-                                                <select class="form-select" name="" id=""  wire:model="featured">
-                                                    <option value="">Select Featured</option>
-                                                    <option value="1">Yes</option>
-                                                    <option value="0">No</option>
-                                                </select>
+                                            <div class="form-group" >
+                                                <div class="custom_select" wire:ignore >
+                                                    <select name="" id="" class="form-control select-active" wire:model="featured">
+                                                        <option value="">Select Featured Status</option>
+                                                        <option value="1">Yes</option>
+                                                        <option value="0">No</option>
+                                                    </select>
+                                                </div>
                                                 @error('featured') <p class="text-danger">{{$message}}</p> @enderror
                                             </div>
-
                                             <div class="input-style mb-2">
                                                 <label>Quantity</label>
                                                 <input name="billing-email" placeholder="Quantity" type="text" class="square" wire:model="quantity">
@@ -127,9 +136,9 @@
                                                 @endif
                                             </div>
 
-                                            <div class="input-style mb-2">
-                                                <label>Category Name</label>
-                                                <select class="form-select" name="" id=""  wire:model="category_id">
+                                            <div class="form-group" >
+                                                <div class="custom_select" wire:ignore >
+                                                <select class="form-select select-active" name="" id=""  wire:model="category_id">
                                                     <option value="">Select Category</option>
                                                     @foreach($categories as $category)
                                                         <option value="{{$category->id}}">{{ucwords($category->name)}}</option>
@@ -174,6 +183,14 @@
             .catch(error => {
                 console.error(error);
             });
+
+        document.addEventListener('livewire:load',function (){
+            $('.select-active').select2();
+            $('.select-active').on('change',function (){
+            @this.set('stock_status',this.value);
+            })
+        })
+
 
     </script>
 @endpush

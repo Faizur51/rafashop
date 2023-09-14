@@ -1,6 +1,23 @@
 <div>
-    <main class="main">
-        <section class="home-slider position-relative pt-50">
+
+    <style>
+        .load{
+            font-family: Roboto-Medium;
+            margin: 0 auto;
+            display: block;
+            width: 387px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 14px;
+            border: 1px solid #f85606;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+    </style>
+
+    <main class="main" >
+        <section class="home-slider position-relative pt-50" wire:ignore>
             <div class="hero-slider-1 dot-style-1 dot-style-1-position-1">
                 @foreach($sliders as $slider)
                 <div class="single-hero-slider single-animation-wrap">
@@ -151,6 +168,11 @@
                         </div>
                         <!--End product-grid-4-->
                     </div>
+
+                    <div class="d-flex justify-content-center">
+                        <a href="javascript:void(0)" wire:click="loadMore" class="btn btn-primary btn-sm load">LOAD MORE</a>
+                    </div>
+
                     <!--En tab one (Featured)-->
                     <div class="tab-pane fade" id="tab-two" role="tabpanel" aria-labelledby="tab-two">
                         <div class="row product-grid-4">
@@ -783,7 +805,7 @@
 
 
 
-        <section class="popular-categories section-padding mt-15 mb-25">
+        <section class="popular-categories section-padding mt-15 mb-25" wire:ignore>
             <div class="container wow fadeIn animated">
                 <h3 class="section-title mb-20"><span>Popular</span> Categories</h3>
                 <div class="carausel-6-columns-cover position-relative">
@@ -832,7 +854,7 @@
                 </div>
             </div>
         </section>
-        <section class="section-padding">
+        <section class="section-padding" wire:ignore>
             <div class="container wow fadeIn animated">
                 <h3 class="section-title mb-20"><span>New</span> Arrivals</h3>
                 <div class="carausel-6-columns-cover position-relative">
@@ -885,7 +907,7 @@
             </div>
         </section>
 
-        <section class="section-padding">
+        <section class="section-padding" wire:ignore>
             <div class="container">
                 <h3 class="section-title mb-20 wow fadeIn animated"><span>Featured</span> Brands</h3>
                 <div class="carausel-6-columns-cover position-relative wow fadeIn animated">

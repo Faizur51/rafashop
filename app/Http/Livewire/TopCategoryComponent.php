@@ -10,7 +10,7 @@ class TopCategoryComponent extends Component
     public function render()
     {
 
-        $categories=Category::all();
+        $categories=Category::orderBy('id','desc')->get();
         return view('livewire.top-category-component',['categories'=>$categories]);
     }
 }
