@@ -1,11 +1,14 @@
 
-<section class="pt-50 pb-50">
+<section class="pt-10 pb-10">
 
     <style>
         ::placeholder {
             font-size: 15px;
             font-weight: bold;
             font-family: "Times New Roman", Times, serif;
+        }
+        .custom_select .select2-container {
+            max-width: 783px;
         }
     </style>
     <div class="container">
@@ -64,17 +67,17 @@
                                                     @error('image') <p class="text-danger">{{$message}}</p> @enderror
                                                 </div>
 
-                                                <div class="form-group col-md-12">
-                                                    <label>Status<span class="required">*</span></label>
-                                                    <select class="form-select" wire:model="status">
+                                                <div class="form-group pt-10" wire:ignore>
+                                                    <div class="custom_select">
+                                                    <select class="form-select select-active" wire:model="status">
                                                         <option value="">Select Status</option>
                                                         <option value="1">Active</option>
                                                         <option value="0">InActive</option>
                                                     </select>
                                                     @error('status') <p class="text-danger">{{$message}}</p> @enderror
                                                 </div>
-                                                <div class="col-md-12">
-                                                    <button type="submit" class="btn btn-fill-out submit" name="submit" value="Submit">Save</button>
+                                                <div class="col-md-12 pt-10">
+                                                    <button type="submit" class="btn btn-fill-out submit " name="submit" value="Submit">Add Slider</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -89,3 +92,13 @@
 </section>
 
 
+@push('scripts')
+    <script>
+        document.addEventListener('livewire:load',function (){
+            $('.select-active').select2();
+            $('.select-active').on('change',function (){
+            @this.set('status',this.value);
+            })
+        })
+    </script>
+@endpush

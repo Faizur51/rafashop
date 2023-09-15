@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Banner;
 use App\Models\Category;
 use App\Models\HomeSlider;
 use App\Models\Product;
@@ -42,10 +43,10 @@ class HomeComponent extends Component
         //$fproducts=Product::orderBy('id','desc')->where('featured',1)->paginate($this->amount);
         $fproducts=Product::orderBy('id','desc')->where('featured',1)->take($this->amount)->get();
 
-        //latest slider/center slider
-        $lsliders=HomeSlider::orderBy('id', 'desc')->where('status',1)->skip(0)->take(3)->get();
+        //banner
+        $banners=Banner::orderBy('id','desc')->where('status',1)->take(3)->get();
 
 
-        return view('livewire.home-component',['sliders'=>$sliders,'pcategories'=>$pcategories,'lproducts'=>$lproducts,'fproducts'=>$fproducts,'lsliders'=>$lsliders]);
+        return view('livewire.home-component',['sliders'=>$sliders,'pcategories'=>$pcategories,'lproducts'=>$lproducts,'fproducts'=>$fproducts,'banners'=>$banners]);
     }
 }

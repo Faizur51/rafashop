@@ -21,11 +21,11 @@ class AdminAddHomeSliderComponent extends Component
     public function updated($fields){
 
         $this->validateOnly($fields,[
-            'top_title'=>'required',
-            'title'=>'required',
-            'sub_title'=>'required',
+            'top_title'=>'required|string|max:20',
+            'title'=>'required|string|max:20',
+            'sub_title'=>'required|string|max:20',
             'offer'=>'required',
-            'link'=>'required',
+            'link'=>'required|string',
             'image'=>'required',
             'status'=>'required',
         ]);
@@ -34,11 +34,11 @@ class AdminAddHomeSliderComponent extends Component
     public function addSlider(){
 
         $this->validate([
-            'top_title'=>'required',
-            'title'=>'required',
-            'sub_title'=>'required',
+            'top_title'=>'required|string',
+            'title'=>'required|string',
+            'sub_title'=>'required|string',
             'offer'=>'required',
-            'link'=>'required',
+            'link'=>'required|string',
             'image'=>'required',
             'status'=>'required',
         ]);
@@ -57,11 +57,9 @@ class AdminAddHomeSliderComponent extends Component
 
        //$this->image->storeAs('slider',$imageName);
         $img = Image::make($this->image);
-
         $img->resize(1200,735);
         $img->save('frontend/assets/images/slider/'.$imageName);
-
-       $slider->image=$imageName;
+        $slider->image=$imageName;
 
        $slider->save();
        session()->flash('message','Slider has been added');

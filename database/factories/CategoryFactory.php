@@ -29,7 +29,7 @@ class CategoryFactory extends Factory
             'https://static-01.daraz.com.bd/p/7126e45345f95b6344644bb2423d2bba.jpg'
         ];
 
-        $category_name=$this->faker->unique()->words($nb=2,$asText=True);
+        $category_name=$this->faker->unique()->words($nb=3,$asText=True);
         $slug=Str::slug($category_name,'-');
 
         return [

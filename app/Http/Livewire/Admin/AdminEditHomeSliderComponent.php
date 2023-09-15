@@ -6,7 +6,7 @@ use App\Models\HomeSlider;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-
+use Image;
 
 class AdminEditHomeSliderComponent extends Component
 {
@@ -58,7 +58,11 @@ class AdminEditHomeSliderComponent extends Component
         if($this->newimage){
             unlink('frontend/assets/images/slider/'.$slider->image);
             $imageName=Carbon::now()->timestamp.'.'.$this->newimage->extension();
-            $this->newimage->storeAs('slider',$imageName);
+            //$this->newimage->storeAs('slider',$imageName);
+
+            $img = Image::make($this->newimage);
+            $img->resize(1200,735);
+            $img->save('frontend/assets/images/slider/'.$imageName);
             $slider->image=$imageName;
         }
 

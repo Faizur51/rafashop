@@ -116,7 +116,8 @@
                                         <li><a href="{{route('admin.home.slider')}}">Manage HomeSlider</a></li>
                                         <li><a href="{{route('admin.category')}}">Manage Categories</a></li>
                                         <li><a href="{{route('admin.product')}}">Manage Products</a></li>
-                                        <li><a href="{{route('admin.coupon')}}">Coupons</a></li>
+                                        <li><a href="{{route('admin.coupon')}}">Manage Coupons</a></li>
+                                        <li><a href="{{route('admin.banner')}}">Manage Banner</a></li>
                                         <li><a href="#">Orders</a></li>
                                         <li><a href="#">Customers</a></li>
                                         <li><a href="{{route('admin.setting')}}">Settings</a></li>

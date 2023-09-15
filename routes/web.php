@@ -70,6 +70,12 @@ Route::middleware(['auth','authadmin'])->group(function(){
     Route::get('admin/coupon',\App\Http\Livewire\Admin\AdminCouponComponent::class)->name('admin.coupon');
     Route::get('admin/coupon/add',\App\Http\Livewire\Admin\AdminAddCouponComponent::class)->name('admin.coupon.add');
 
+
+
+
+    Route::get('admin/banner',\App\Http\Livewire\Admin\AdminBannerComponent::class)->name('admin.banner');
+    Route::get('admin/banner/add',\App\Http\Livewire\Admin\AdminAddBannerComponent::class)->name('admin.banner.add');
+    Route::get('admin/banner/edit/{banner_slug}',\App\Http\Livewire\Admin\AdminEditBannerComponent::class)->name('admin.banner.edit');
 });
 
 require __DIR__.'/auth.php';

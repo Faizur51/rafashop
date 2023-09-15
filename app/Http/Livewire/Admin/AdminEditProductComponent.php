@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-
+use Image;
 class AdminEditProductComponent extends Component
 {
 
@@ -99,7 +99,10 @@ class AdminEditProductComponent extends Component
         if($this->newimage){
             unlink('frontend/assets/images/product/'.$product->image);
             $imageName = Carbon::now()->timestamp . '.' . $this->newimage->extension();
-            $this->newimage->storeAs('product', $imageName);
+            //$this->newimage->storeAs('product', $imageName);
+            $img = Image::make($this->newimage);
+            $img->resize(1100,1100);
+            $img->save('frontend/assets/images/product/'.$imageName);
             $product->image = $imageName;
         }
 
@@ -116,7 +119,10 @@ class AdminEditProductComponent extends Component
          $imagesname='';
           foreach ($this->newimages as $key=>$image){
               $imgName = Carbon::now()->timestamp . $key.'.'. $image->extension();
-              $image->storeAs('product', $imgName);
+              //$image->storeAs('product', $imgName);
+              $img = Image::make($image);
+              $img->resize(600,600);
+              $img->save('frontend/assets/images/product/'.$imgName);
               $imagesname=$imagesname.','.$imgName;
           }
          $product->images=$imagesname;

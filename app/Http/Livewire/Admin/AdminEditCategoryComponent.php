@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-
+use Image;
 
 class AdminEditCategoryComponent extends Component
 {
@@ -24,10 +24,6 @@ class AdminEditCategoryComponent extends Component
 
     public $scategory_id;
     public $scategory_slug;
-
-
-
-
 
 
     public function generateSlug(){
@@ -78,8 +74,12 @@ class AdminEditCategoryComponent extends Component
             if ($this->newimage) {
                 unlink('frontend/assets/images/category/' . $category->image);
                 $imageName = Carbon::now()->timestamp . '.' . $this->newimage->extension();
-                $this->newimage->storeAs('category', $imageName);
+                //$this->newimage->storeAs('category', $imageName);
+                $img = Image::make($this->newimage);
+                $img->resize(440,440);
+                $img->save('frontend/assets/images/category/'.$imageName);
                 $category->image = $imageName;
+
             }
 
             $category->save();

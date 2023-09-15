@@ -18,12 +18,8 @@ class ProductFactory extends Factory
     public function definition()
     {
         $randomImages =[
-            'https://m.media-amazon.com/images/I/41WpqIvJWRL._AC_UY436_QL65_.jpg',
-            'https://m.media-amazon.com/images/I/61ghDjhS8vL._AC_UY436_QL65_.jpg',
-            'https://m.media-amazon.com/images/I/61c1QC4lF-L._AC_UY436_QL65_.jpg',
-            'https://m.media-amazon.com/images/I/710VzyXGVsL._AC_UY436_QL65_.jpg',
+
             'https://m.media-amazon.com/images/I/61EPT-oMLrL._AC_UY436_QL65_.jpg',
-            'https://m.media-amazon.com/images/I/71r3ktfakgL._AC_UY436_QL65_.jpg',
             'https://m.media-amazon.com/images/I/61CqYq+xwNL._AC_UL640_QL65_.jpg',
             'https://m.media-amazon.com/images/I/71cVOgvystL._AC_UL640_QL65_.jpg',
             'https://m.media-amazon.com/images/I/71E+oh38ZqL._AC_UL640_QL65_.jpg',
@@ -41,7 +37,7 @@ class ProductFactory extends Factory
             'https://ftp.esquireelectronicsltd.com/uploads/gallery/aero-new3494-8501.jpg'
         ];
 
-        $product_name=$this->faker->unique(true)->words($nb=3,$asText=True);
+        $product_name=$this->faker->unique(true)->words($nb=4,$asText=True);
         $slug=Str::slug($product_name,'-');
         return [
             'name'=>$product_name,
@@ -52,7 +48,7 @@ class ProductFactory extends Factory
             'sale_price'=>$this->faker->numberBetween(5000,50000),
             'sku'=>'PRO'.$this->faker->unique()->numberBetween(100,500),
             'quantity'=>$this->faker->numberBetween(10,50),
-            'image'=>$randomImages[rand(0, 20)],
+            'image'=>$randomImages[rand(0, 15)],
             'category_id'=>$this->faker->numberBetween(1,7),
         ];
     }

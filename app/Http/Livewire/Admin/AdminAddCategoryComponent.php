@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-
+use Image;
 class AdminAddCategoryComponent extends Component
 {
     use WithFileUploads;
@@ -55,8 +55,12 @@ class AdminAddCategoryComponent extends Component
             $category->name = $this->name;
             $category->slug = $this->slug;
             $imageName = Carbon::now()->timestamp . '.' . $this->image->extension();
-            $this->image->storeAs('category', $imageName);
+            //$this->image->storeAs('category', $imageName);
+            $img = Image::make($this->image);
+            $img->resize(440,440);
+            $img->save('frontend/assets/images/category/'.$imageName);
             $category->image = $imageName;
+
             $category->save();
         }
 

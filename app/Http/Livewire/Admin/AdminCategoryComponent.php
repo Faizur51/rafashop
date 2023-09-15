@@ -11,6 +11,7 @@ class AdminCategoryComponent extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+
     public $deleteId = '';
 
     public function deleteId($id)
