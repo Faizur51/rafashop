@@ -2,10 +2,11 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Exports\CouponsExport;
 use App\Models\Coupon;
 use Livewire\Component;
 use Livewire\WithPagination;
-
+use Maatwebsite\Excel\Facades\Excel;
 class AdminCouponComponent extends Component
 {
     use WithPagination;
@@ -21,6 +22,10 @@ class AdminCouponComponent extends Component
         $coupon=Coupon::find($this->deleteId);
         $coupon->delete();
         noty()->progressBar(false)->layout('topRight')->addInfo('Coupon deleted Successfully.');
+    }
+
+    public function excelDownload(){
+        return Excel::download(new CouponsExport, 'coupons.xlsx');
     }
 
     public function render()

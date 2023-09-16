@@ -12,7 +12,10 @@
                                         <div class="card">
                                             <div class="card-header d-flex justify-content-between">
                                                 <h5 class="mb-0">Coupon!</h5>
-                                                <a href="{{route('admin.coupon.add')}}" class="btn btn-danger btn-sm">Add Coupon</a>
+                                               <div>
+                                                   <a href="#" wire:click.prevent="excelDownload" class="btn btn-danger btn-sm">Excel</a>
+                                                   <a href="{{route('admin.coupon.add')}}" class="btn btn-danger btn-sm">Add Coupon</a>
+                                               </div>
                                             </div>
                                             <div class="card-body">
                                                 <div class="table-responsive">
