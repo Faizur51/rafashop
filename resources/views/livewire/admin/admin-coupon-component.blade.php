@@ -14,6 +14,7 @@
                                                 <h5 class="mb-0">Coupon!</h5>
                                                <div>
                                                    <a href="#" wire:click.prevent="excelDownload" class="btn btn-danger btn-sm">Excel</a>
+                                                   <a href="{{route('admin.exportPDF')}}"  class="btn btn-danger btn-sm">Coupon PDF</a>
                                                    <a href="{{route('admin.coupon.add')}}" class="btn btn-danger btn-sm">Add Coupon</a>
                                                </div>
                                             </div>

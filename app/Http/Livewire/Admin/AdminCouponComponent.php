@@ -7,6 +7,7 @@ use App\Models\Coupon;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 class AdminCouponComponent extends Component
 {
     use WithPagination;
@@ -27,6 +28,7 @@ class AdminCouponComponent extends Component
     public function excelDownload(){
         return Excel::download(new CouponsExport, 'coupons.xlsx');
     }
+
 
     public function render()
     {

@@ -72,8 +72,9 @@ Route::middleware(['auth','authadmin'])->group(function(){
     Route::get('admin/coupon/add',\App\Http\Livewire\Admin\AdminAddCouponComponent::class)->name('admin.coupon.add');
 
 
+    //For download pdf
 
-
+    Route::get('admin/pdf',[\App\Http\Livewire\Admin\AdminCouponPdfComponent::class,'exportPDF'])->name('admin.exportPDF');
 
 
 
