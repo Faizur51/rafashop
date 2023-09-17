@@ -38,6 +38,9 @@ Route::get('/product/search',\App\Http\Livewire\SearchProductComponent::class)->
 Route::get('/contact-us',\App\Http\Livewire\ContactComponent::class)->name('contact');
 
 
+Route::get('/thank-you',\App\Http\Livewire\ThankyouComponent::class)->name('thankyou');
+
+
 /*Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');*/
@@ -73,8 +76,7 @@ Route::middleware(['auth','authadmin'])->group(function(){
 
 
     //For download pdf
-
-    Route::get('admin/pdf',[\App\Http\Livewire\Admin\AdminCouponPdfComponent::class,'exportPDF'])->name('admin.exportPDF');
+    Route::get('admin/coupon/pdf',[\App\Http\Livewire\Admin\AdminCouponPdfComponent::class,'exportPDF'])->name('admin.exportPDF');
 
 
 

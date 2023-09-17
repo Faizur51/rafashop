@@ -11,8 +11,8 @@ use Livewire\Component;
 use Cart;
 class CheckoutComponent extends Component
 {
+    public $ship_to_defferent;
 
-    public $shipping_different;
     public $firstname;
     public $lastname;
     public $mobile;
@@ -35,14 +35,20 @@ class CheckoutComponent extends Component
    public $paymentmode;
 
 
+   public $thankyou;
+
+
+    public $disabled=false;
+
     public function updated($fields){
+
 
         $this->validateOnly($fields,[
 
             'firstname'=>'required',
             'lastname'=>'required',
-            'mobile'=>'required|numeric',
-            'email'=>'required|email',
+            'mobile'=>'required|numeric|unique:orders',
+            'email'=>'required|email|unique:orders',
             'address'=>'required',
             'city'=>'required',
             'district'=>'required',
@@ -52,7 +58,7 @@ class CheckoutComponent extends Component
         ]);
 
 
-     if($this->shipping_different)
+        if($this->ship_to_defferent)
 
          $this->validateOnly($fields,[
              's_firstname'=>'required',
@@ -68,14 +74,15 @@ class CheckoutComponent extends Component
 
     }
 
-   public function placeOrder(){
+   public function placeOrder()
+   {
 
         $this->validate([
 
         'firstname'=>'required',
         'lastname'=>'required',
-        'mobile'=>'required|numeric',
-        'email'=>'required|email',
+        'mobile'=>'required|numeric|unique:orders',
+        'email'=>'required|email|unique:orders',
         'address'=>'required',
         'city'=>'required',
         'district'=>'required',
@@ -98,8 +105,8 @@ class CheckoutComponent extends Component
       $order->city=$this->city;
       $order->district=$this->district;
       $order->thana=$this->thana;
-      $order->status='order';
-      $order->shipping_different=$this->shipping_different ? 1: 0;
+      $order->status='ordered';
+      $order->shipping_different=$this->ship_to_defferent ? 1: 0;
       $order->save();
 
 
@@ -116,9 +123,8 @@ class CheckoutComponent extends Component
 
       }
 
-     if($this->shipping_different){
+     if($this->ship_to_defferent){
          $this->validate([
-
              's_firstname'=>'required',
              's_lastname'=>'required',
              's_mobile'=>'required|numeric',
@@ -127,7 +133,6 @@ class CheckoutComponent extends Component
              's_city'=>'required',
              's_district'=>'required',
              's_thana'=>'required',
-
          ]);
 
          $shipping=new Shipping();
@@ -144,17 +149,53 @@ class CheckoutComponent extends Component
      }
 
     if($this->paymentmode=="cod"){
-        $transaction=new Transaction();
+        /*$transaction=new Transaction();
         $transaction->user_id=Auth::user()->id;
         $transaction->order_id=$order->id;
         $transaction->mode="cod";
         $transaction->status="pending";
-        $transaction->save();
+        $transaction->save();*/
+        $this->makeTransaction($order->id,'pending');
+        $this->resetCart();
+
+    }else if($this->paymentmode=="card"){
+
+        dd('Online payment gateway');
     }
 
-  Cart::instance('cart')->destroy();
-    session()->forget('checkout');
+   }
 
+   public function resetCart(){
+       $this->thankyou=1;
+       Cart::instance('cart')->destroy();
+       session()->forget('checkout');
+   }
+
+   public function makeTransaction($order_id,$status){
+
+       $transaction=new Transaction();
+       $transaction->user_id=Auth::user()->id;
+       $transaction->order_id=$order_id;
+       $transaction->mode=$this->paymentmode;
+       $transaction->status=$status;
+       $transaction->save();
+
+   }
+
+   public function varifyForCheckout()
+   {
+        if(!Auth::check())
+        {
+          return redirect()->route('login');
+        }
+        else if($this->thankyou)
+        {
+            return redirect()->route('thankyou');
+        }
+        else if(!session()->get('checkout'))
+        {
+            return redirect()->route('shop.cart');
+        }
    }
 
    //aie code cart component theke ana holo coupon thakle tar discount korar jonno
@@ -180,15 +221,17 @@ class CheckoutComponent extends Component
             return;
         }
 
-        if(session()->has('coupon')){
-
+        if(session()->has('coupon'))
+        {
             session()->put('checkout',[
                 'discount'=>$this->discount,
                 'subtotal'=>$this->subtotalAfterDiscount,
                 'tax'=>$this->taxAfterDiscount,
                 'total'=>$this->totalAfterDiscount
             ]);
-        }else{
+        }
+        else
+        {
             session()->put('checkout',[
                 'discount'=>0,
                 'subtotal'=>Cart::instance('cart')->subtotal(),
@@ -198,9 +241,16 @@ class CheckoutComponent extends Component
         }
     }
 
+    public function checkoutModal(){
+       $this->dispatchBrowserEvent('show-modal');
+    }
+
 
     public function render()
     {
+
+        $this->varifyForCheckout();
+
         if(session()->has('coupon')){
             if(Cart::instance('cart')->subtotal() < session()->get('coupon')['cart_value']){
                 session()->forget('coupon');
@@ -210,7 +260,6 @@ class CheckoutComponent extends Component
         }
 
         $this->setAmmountForCheckout();
-
 
         return view('livewire.checkout-component');
     }

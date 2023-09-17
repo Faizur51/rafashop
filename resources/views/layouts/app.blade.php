@@ -243,7 +243,11 @@
 @stack('scripts')
 @livewireScripts
 
-
+<script>
+    window.addEventListener('show-modal',function (){
+          $('#showModal').modal('show')
+    })
+</script>
 
 </body>
 

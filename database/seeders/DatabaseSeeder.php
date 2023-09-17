@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
 
         Category::factory(8)->create();
         Product::factory(8000)->create();
-        Coupon::factory(20)->create();
+        Coupon::factory(100)->create();
         User::factory(1)->create();
         HomeSlider::factory(6)->create();
 
