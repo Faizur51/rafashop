@@ -15,21 +15,27 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned();
-            $table->decimal('subtotal');
+            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->decimal('subtotal')->nullable();
             $table->decimal('discount')->default(0);
-            $table->decimal('tax');
-            $table->decimal('total');
-            $table->string('firstname');
+            $table->decimal('tax')->nullable();
+            $table->decimal('total')->nullable();
+            $table->string('firstname')->nullable();
             $table->string('lastname')->nullable();
-            $table->string('mobile')->unique();
-            $table->string('email')->unique();
+            $table->string('mobile')->nullable();
+            $table->string('email')->nullable();
             $table->string('address')->nullable();
             $table->string('city')->nullable();
             $table->string('district')->nullable();
             $table->string('thana')->nullable();
             $table->string('status');
             $table->string('shipping_different')->default(false);
+
+            $table->string('name')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('transaction_id')->nullable();
+            $table->string('amount')->nullable();
+            $table->string('currency')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
         });

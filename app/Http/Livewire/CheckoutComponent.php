@@ -165,6 +165,8 @@ class CheckoutComponent extends Component
 
    }
 
+
+
    public function resetCart(){
        $this->thankyou=1;
        Cart::instance('cart')->destroy();

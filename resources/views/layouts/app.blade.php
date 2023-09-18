@@ -118,7 +118,7 @@
                                         <li><a href="{{route('admin.product')}}">Manage Products</a></li>
                                         <li><a href="{{route('admin.coupon')}}">Manage Coupons</a></li>
                                         <li><a href="{{route('admin.banner')}}">Manage Banner</a></li>
-                                        <li><a href="#">Orders</a></li>
+                                        <li><a href="{{route('admin.order')}}">Manage Orders</a></li>
                                         <li><a href="#">Customers</a></li>
                                         <li><a href="{{route('admin.setting')}}">Settings</a></li>
                                         <li><a href="#">Logout</a></li>
@@ -248,6 +248,9 @@
           $('#showModal').modal('show')
     })
 </script>
+
+
+
 
 </body>
 
