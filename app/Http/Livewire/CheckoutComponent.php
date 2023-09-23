@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\District;
+use App\Models\Division;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Shipping;
@@ -39,6 +41,11 @@ class CheckoutComponent extends Component
 
 
     public $disabled=false;
+
+
+    public $division_id;
+
+   public $district_id;
 
     public function updated($fields){
 
@@ -248,6 +255,15 @@ class CheckoutComponent extends Component
     }
 
 
+
+    public function changeDistrict(){
+        $this->district_id=0;
+    }
+
+
+
+
+
     public function render()
     {
 
@@ -263,6 +279,11 @@ class CheckoutComponent extends Component
 
         $this->setAmmountForCheckout();
 
-        return view('livewire.checkout-component');
+
+        $divisions=Division::orderBy('id','desc')->get();
+        $districts=District::where('division_id',$this->division_id)->get();
+
+
+        return view('livewire.checkout-component',['divisions'=>$divisions,'districts'=>$districts]);
     }
 }

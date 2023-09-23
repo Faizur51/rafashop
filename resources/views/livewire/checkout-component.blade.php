@@ -48,36 +48,28 @@
                                 <div class="col-md-4">
                                     <div class="col-sm-md-2">
                                         <div class="custom_select">
-                                            <select class="form-control" wire:model="city">
-                                                <option value="">Select City</option>
-                                                <option value="AX">Aland Islands</option>
-                                                <option value="AF">Afghanistan</option>
-                                                <option value="AL">Albania</option>
-                                                <option value="WS">Western Samoa</option>
-                                                <option value="YE">Yemen</option>
-                                                <option value="ZM">Zambia</option>
-                                                <option value="ZW">Zimbabwe</option>
+                                            <select class="form-control" wire:model="division_id" wire:change="changeDistrict">
+                                                <option value="">Select Division</option>
+                                                @foreach($divisions as $division)
+                                                <option value="{{$division->id}}">{{$division->name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
-                                        @error('city') <span class="text-danger">{{$message}}</span> @enderror
+                                        @error('division_id') <span class="text-danger">{{$message}}</span> @enderror
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="col-sm-md-2">
                                         <div class="custom_select">
-                                            <select class="form-control" wire:model="district">
-                                                <option value="">Select City</option>
-                                                <option value="AX">Aland Islands</option>
-                                                <option value="AF">Afghanistan</option>
-                                                <option value="AL">Albania</option>
-                                                <option value="WS">Western Samoa</option>
-                                                <option value="YE">Yemen</option>
-                                                <option value="ZM">Zambia</option>
-                                                <option value="ZW">Zimbabwe</option>
+                                            <select class="form-control" wire:model="district_id">
+                                                <option value="">Select District </option>
+                                                @foreach($districts as $district)
+                                                <option value="{{$district->id}}">{{$district->name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
-                                        @error('district') <span class="text-danger">{{$message}}</span> @enderror
+                                        @error('district_id') <span class="text-danger">{{$message}}</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-4">

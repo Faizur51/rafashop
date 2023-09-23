@@ -30,5 +30,13 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test.blade.php@example.com',
         // ]);
+
+
+        $this->call([
+            DivisionSeeder::class,
+            DistrictSeeder::class,
+            ThanaSeeder::class,
+        ]);
+
     }
 }
