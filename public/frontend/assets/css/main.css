@@ -1331,8 +1331,8 @@ label {
 /*comment*/
 .comments-area {
   background: transparent;
-  border-top: 1px solid #e2e9e1;
-  padding: 45px 0;
+  /*border-top: 1px solid #e2e9e1;
+  padding: 45px 0;*/
   margin-top: 50px;
 }
 
@@ -1423,8 +1423,8 @@ label {
 }
 
 .comment-form {
-  border-top: 1px solid #e2e9e1;
-  padding-top: 45px;
+  /*border-top: 1px solid #e2e9e1;
+  padding-top: 45px;*/
   margin-bottom: 20px;
 }
 
@@ -8456,7 +8456,7 @@ span.fi-rs-apps {
 }
 
 /***************************
-    Page section margin 
+    Page section margin
 ****************************/
 .mtb-0 {
   margin: 0;
@@ -9905,7 +9905,7 @@ span.fi-rs-apps {
 }
 
 .search-style-1 form {
-	width: 75%;	
+	width: 75%;
 }
 .header-info-right a{
     padding-left:20px;
@@ -9942,6 +9942,6 @@ span.fi-rs-apps {
 {
 	.mob-app{
 		padding-left:3%;
-	}  
+	}
 }
 

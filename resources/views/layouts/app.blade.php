@@ -12,8 +12,11 @@
     <meta property="og:url" content="">
     <meta property="og:image" content="">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('frontend')}}/assets/imgs/theme/favicon.ico">
+
     <link rel="stylesheet" href="{{asset('frontend')}}/assets/css/main.css">
+
     <link rel="stylesheet" href="{{asset('frontend')}}/assets/css/custom.css">
+
     @livewireStyles
 
 </head>
@@ -119,7 +122,8 @@
                                         <li><a href="{{route('admin.coupon')}}">Manage Coupons</a></li>
                                         <li><a href="{{route('admin.banner')}}">Manage Banner</a></li>
                                         <li><a href="{{route('admin.order')}}">Manage Orders</a></li>
-                                        <li><a href="#">Customers</a></li>
+                                        <li><a href="{{route('admin.customer')}}">Manage Customers</a></li>
+                                        <li><a href="{{route('admin.review')}}">Manage Review</a></li>
                                         <li><a href="{{route('admin.setting')}}">Settings</a></li>
                                         <li><a href="#">Logout</a></li>
                                     </ul>

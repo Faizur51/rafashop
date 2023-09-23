@@ -42,6 +42,18 @@ Route::get('/contact-us',\App\Http\Livewire\ContactComponent::class)->name('cont
 Route::get('/thank-you',\App\Http\Livewire\ThankyouComponent::class)->name('thankyou');
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 // SSLCOMMERZ Start
 Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
 Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
@@ -64,6 +76,9 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 
 Route::middleware(['auth'])->group(function(){
     Route::get('user/dashboard',\App\Http\Livewire\User\UserDashboardComponent::class)->name('user.dashboard');
+    Route::get('user/orderdetails/{order_id}',\App\Http\Livewire\User\UserOrderDetailsComponent::class)->name('user.orderdetails');
+    Route::get('user/review/{order_item_id}',\App\Http\Livewire\User\UserReviewComponent::class)->name('user.review');
+
 });
 
 
@@ -102,6 +117,10 @@ Route::middleware(['auth','authadmin'])->group(function(){
 
     Route::get('admin/order',\App\Http\Livewire\Admin\AdminOrderComponent::class)->name('admin.order');
     Route::get('admin/orderdetails/{order_id}',\App\Http\Livewire\Admin\AdminOrderDetailsComponent::class)->name('admin.orderdetails');
+
+
+    Route::get('admin/customer',\App\Http\Livewire\Admin\AdminCustomerComponent::class)->name('admin.customer');
+    Route::get('admin/review',\App\Http\Livewire\Admin\AdminReviewComponent::class)->name('admin.review');
 
 
 });

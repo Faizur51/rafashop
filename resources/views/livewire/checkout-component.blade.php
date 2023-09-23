@@ -9,13 +9,13 @@
                 </div>
             </div>
         </div>
-        <section class="mt-50 mb-50">
+        <section class="mt-10 mb-10">
             <div class="container">
                 <form wire:submit.prevent="placeOrder">
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-25">
+                        <div class="col-md-6 card">
+                            <div class="mt-10 mb-20">
                                 <h4>Billing Details</h4>
                             </div>
                             <div class="row">
@@ -225,7 +225,7 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        <h5><a href="#">{{ucwords($item->model->name)}}</a></h5>
+                                                        <a href="#">{{ucwords($item->model->name)}}</a>
                                                         <span class="product-qty">x {{$item->qty}}</span>
                                                     </td>
                                                     <td>&#2547; {{$item->subtotal()}}</td>

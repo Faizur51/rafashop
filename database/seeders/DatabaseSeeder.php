@@ -21,14 +21,14 @@ class DatabaseSeeder extends Seeder
     {
 
         Category::factory(8)->create();
-        Product::factory(8000)->create();
+        Product::factory(5000)->create();
         Coupon::factory(100)->create();
         User::factory(1)->create();
         HomeSlider::factory(6)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
+        //     'email' => 'test.blade.php@example.com',
         // ]);
     }
 }

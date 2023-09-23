@@ -10,7 +10,7 @@
                                 <div class="tab-content dashboard-content">
                                     <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                                         <div class="card">
-                                            <div class="card-header d-flex justify-content-between">
+                                            <div class="card-header d-flex justify-content-between align-items-center">
                                                 <h5 class="mb-0">Order List!</h5>
                                                 <div>
                                                     <a href="#" wire:click.prevent="excelDownload" class="btn btn-danger btn-sm">Excel</a>
@@ -19,7 +19,7 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="table-responsive">
-                                                    <table class="table">
+                                                    <table class="table" style="border-bottom: 1px solid #dee2e6">
                                                         <thead>
                                                         <tr>
                                                             <th>OrderID</th>
@@ -42,18 +42,31 @@
                                                         @foreach($orders as $order)
                                                             <tr>
                                                                 <td>{{$order->id}}</td>
-                                                                <td>{{ucwords($order->subtotal)}}</td>
-                                                                <td>{{ucwords($order->discount)}}</td>
-                                                                <td>{{ucwords($order->tax)}}</td>
-                                                                <td> &#2547; {{$order->total}}</td>
-                                                                <td>&#2547; {{$order->firstname.$order->lastname}}</td>
+                                                                <td>&#2547; {{round($order->subtotal)}}</td>
+                                                                <td>&#2547; {{round($order->discount)}}</td>
+                                                                <td>&#2547; {{round($order->tax)}}</td>
+                                                                <td>&#2547; {{round($order->total)}}</td>
+                                                                <td>{{ucwords($order->firstname.' '.$order->lastname)}}</td>
                                                                 <td>{{$order->mobile}}</td>
-                                                                <td>{{$order->address}}</td>
-                                                                <td>{{$order->city}}</td>
-                                                                <td>{{$order->District}}</td>
-                                                                <td>{{$order->thana}}</td>
-                                                                <td>{{$order->status}}</td>
-                                                               <td><a href="{{route('admin.orderdetails',['order_id'=>$order->id])}}" class="btn-small"> <i class="fi-rs-eye"></i></a></td>
+                                                                <td>{{ucwords($order->address)}}</td>
+                                                                <td>{{ucwords($order->city)}}</td>
+                                                                <td>{{ucwords($order->district)}}</td>
+                                                                <td>{{ucwords($order->thana)}}</td>
+                                                                <td>{{ucwords($order->status)}}</td>
+                                                               <td><a href="{{route('admin.orderdetails',['order_id'=>$order->id])}}" class="btn-small"> <i class="fi-rs-eye" style="font-size:18px"></i></a></td>
+                                                               <td>
+                                                                   <div class="dropdown">
+                                                                       <a class=" dropdown-toggle btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                           <i class="fi-rs-edit-alt" style="font-size:18px"></i>
+                                                                       </a>
+                                                                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                                           <li><a class="dropdown-item" href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'processed')">Processed</a></li>
+                                                                           <li><a class="dropdown-item" href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'shipping')">Shipping</a></li>
+                                                                           <li><a class="dropdown-item" href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'delivery')">Delivery</a></li>
+                                                                           <li><a class="dropdown-item" href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'cancel')">Cancel</a></li>
+                                                                       </ul>
+                                                                   </div>
+                                                               </td>
                                                             </tr>
                                                         @endforeach
                                                         </tbody>

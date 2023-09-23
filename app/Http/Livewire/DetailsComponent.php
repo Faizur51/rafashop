@@ -5,36 +5,44 @@ namespace App\Http\Livewire;
 use App\Models\Product;
 use Livewire\Component;
 use Cart;
+
 class DetailsComponent extends Component
 {
 
     public $slug;
 
 
-    public function mount($slug){
-        $this->slug=$slug;
+    public function mount($slug)
+    {
+        $this->slug = $slug;
     }
 
-
-
-    public function store($product_id,$product_name,$product_price){
-        Cart::instance('cart')->add($product_id,$product_name,1,$product_price)->associate('App\Models\Product');
-        session()->flash('success_message','Item added into the cart');
+    public function store($product_id, $product_name, $product_price)
+    {
+        Cart::instance('cart')->add($product_id, $product_name, 1, $product_price)->associate('App\Models\Product');
+        session()->flash('success_message', 'Item added into the cart');
         return redirect()->route('shop.cart');
     }
 
+    public function showModal($id)
+    {
 
+        $product = Product::find($id);
+
+
+
+    }
 
     public function render()
     {
-        $product=Product::where('slug',$this->slug)->first();
+        $product = Product::where('slug', $this->slug)->first();
 
-        $images=explode(',',$product->images);
-        array_splice($images,0,0,$product->image);
+        $images = explode(',', $product->images);
+        array_splice($images, 0, 0, $product->image);
 
-        $rproducts=Product::where('category_id',$product->category_id)->inRandomOrder()->limit(4)->get();
+        $rproducts = Product::where('category_id', $product->category_id)->inRandomOrder()->limit(4)->get();
 
-        $nproducts=Product::latest()->take(4)->get();
-        return view('livewire.details-component',['product'=>$product,'rproducts'=>$rproducts,'nproducts'=>$nproducts,'images'=>$images]);
+        $nproducts = Product::latest()->take(4)->get();
+        return view('livewire.details-component', ['product' => $product, 'rproducts' => $rproducts, 'nproducts' => $nproducts, 'images' => $images]);
     }
 }

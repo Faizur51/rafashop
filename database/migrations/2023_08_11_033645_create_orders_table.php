@@ -36,6 +36,11 @@ return new class extends Migration
             $table->string('transaction_id')->nullable();
             $table->string('amount')->nullable();
             $table->string('currency')->nullable();
+            $table->date('cancel_date')->nullable();
+            $table->date('processed_date')->nullable();
+            $table->date('shipping_date')->nullable();
+            $table->date('delivery_date')->nullable();
+
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
         });

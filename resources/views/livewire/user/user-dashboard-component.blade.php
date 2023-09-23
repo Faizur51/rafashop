@@ -13,17 +13,11 @@
                 <div class="row">
                     <div class="col-lg-12 m-auto">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="dashboard-menu">
                                     <ul class="nav flex-column" role="tablist">
                                         <li class="nav-item" wire:ignore>
-                                            <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
-                                        </li>
-                                        <li class="nav-item" wire:ignore>
-                                            <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>Orders</a>
-                                        </li>
-                                        <li class="nav-item" wire:ignore>
-                                            <a class="nav-link" id="track-orders-tab" data-bs-toggle="tab" href="#track-orders" role="tab" aria-controls="track-orders" aria-selected="false"><i class="fi-rs-shopping-cart-check mr-10"></i>Track Your Order</a>
+                                            <a class="nav-link active" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>Orders</a>
                                         </li>
                                         <li class="nav-item" wire:ignore>
                                             <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="fi-rs-marker mr-10"></i>My Address</a>
@@ -43,115 +37,112 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-9">
                                 <div class="tab-content dashboard-content">
-                                    <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab" wire:ignore.self>
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h5 class="mb-0">Hello Rosie! </h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <p>From your account dashboard. you can easily check &amp; view your <a href="#">recent orders</a>, manage your <a href="#">shipping and billing addresses</a> and <a href="#">edit your password and account details.</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab" wire:ignore.self>
+
+                                    <div class="tab-pane fade active show" id="orders" role="tabpanel" aria-labelledby="orders-tab" wire:ignore.self>
                                         <div class="card">
                                             <div class="card-header">
                                                 <h5 class="mb-0">Your Orders</h5>
                                             </div>
                                             <div class="card-body">
                                                 <div class="table-responsive">
-                                                    <table class="table">
+                                                    <table class="table" style="border-bottom: 1px solid #dee2e6">
                                                         <thead>
                                                         <tr>
                                                             <th>Order</th>
                                                             <th>Date</th>
-                                                            <th>Status</th>
+                                                            <th>Payment Type</th>
+                                                            <th>Order Status</th>
                                                             <th>Total</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
+                                                        @foreach($orders as $order)
                                                         <tr>
-                                                            <td>#1357</td>
-                                                            <td>March 45, 2022</td>
-                                                            <td>Processing</td>
-                                                            <td>$125.00 for 2 item</td>
-                                                            <td><a href="#" class="btn-small d-block">View</a></td>
+                                                            <td>{{$order->id}}</td>
+                                                            <td>{{$order->created_at}}</td>
+                                                            <td>{{ucwords($order->transaction->mode)}}</td>
+                                                            <td>{{ucwords($order->status)}}</td>
+                                                            <td>&#2547; {{round($order->total)}}</td>
+                                                            <td><a href="{{route('user.orderdetails',['order_id'=>$order->id])}}" class="btn-small d-block"><i class="fi-rs-eye" style="font-size:18px"></i></a></td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>#2468</td>
-                                                            <td>June 29, 2022</td>
-                                                            <td>Completed</td>
-                                                            <td>$364.00 for 5 item</td>
-                                                            <td><a href="#" class="btn-small d-block">View</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>#2366</td>
-                                                            <td>August 02, 2022</td>
-                                                            <td>Completed</td>
-                                                            <td>$280.00 for 3 item</td>
-                                                            <td><a href="#" class="btn-small d-block">View</a></td>
-                                                        </tr>
+                                                        @endforeach
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="track-orders" role="tabpanel" aria-labelledby="track-orders-tab" wire:ignore.self>
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h5 class="mb-0">Orders tracking</h5>
-                                            </div>
-                                            <div class="card-body contact-from-area">
-                                                <p>To track your order please enter your OrderID in the box below and press "Track" button. This was given to you on your receipt and in the confirmation email you should have received.</p>
-                                                <div class="row">
-                                                    <div class="col-lg-8">
-                                                        <form class="contact-form-style mt-30 mb-50" action="#" method="post">
-                                                            <div class="input-style mb-20">
-                                                                <label>Order ID</label>
-                                                                <input name="order-id" placeholder="Found in your order confirmation email" type="text" class="square">
-                                                            </div>
-                                                            <div class="input-style mb-20">
-                                                                <label>Billing email</label>
-                                                                <input name="billing-email" placeholder="Email you used during checkout" type="email" class="square">
-                                                            </div>
-                                                            <button class="submit submit-auto-width" type="submit">Track</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab" wire:ignore.self>
                                         <div class="row">
+                                            @if($user)
+                                                <div class="col-lg-6">
+                                                    <div class="card mb-3 mb-lg-0">
+                                                        <div class="card-header">
+                                                            <h5 class="mb-0">Billing Address</h5>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <h5 class="font-sm text-grey-50">Name:{{ucwords($user->name)}}</h5>
+                                                            <p class="font-sm text-grey-50">Email:{{$user->email}}</p>
+                                                            @if($user->profile)
+                                                            <p class="font-sm text-grey-50">Mobile:{{$user->profile->mobile}}</p>
+                                                            <p class="font-sm text-grey-50">City:{{$user->profile->city}}</p>
+                                                            <p class="font-sm text-grey-50">District:{{$user->profile->districr}}</p>
+                                                            <p class="font-sm text-grey-50">Thana:{{$user->profile->thana}}</p>
+                                                            @endif
+                                                            <a href="#" class="btn-small">Edit</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+
+
+{{--
+                                           @if($order)
                                             <div class="col-lg-6">
                                                 <div class="card mb-3 mb-lg-0">
                                                     <div class="card-header">
                                                         <h5 class="mb-0">Billing Address</h5>
                                                     </div>
                                                     <div class="card-body">
-                                                        <address>000 Interstate<br> 00 Business Spur,<br> Sault Ste. <br>Marie, MI 00000</address>
-                                                        <p>New York</p>
+                                                        <h5 class="font-sm text-grey-50">Name:{{ucwords($order->firstname.' '.$order->lastname)}}</h5>
+                                                        <p class="font-sm text-grey-50">Mobile:{{$order->mobile}}</p>
+                                                        <p class="font-sm text-grey-50">Email:{{$order->email}}</p>
+                                                        <p class="text-grey-3">Address:{{ucwords($order->address)}}</p>
+                                                        <p class="text-grey-3">City:{{ucwords($order->city)}}</p>
+                                                        <p class="text-grey-3">District:{{ucwords($order->district)}}</p>
+                                                        <p class="text-grey-3">Thana:{{ucwords($order->thana)}}</p>
                                                         <a href="#" class="btn-small">Edit</a>
                                                     </div>
                                                 </div>
                                             </div>
+                                            @endif
+
+                                            @if($order->shipping_different)
                                             <div class="col-lg-6">
                                                 <div class="card">
                                                     <div class="card-header">
                                                         <h5 class="mb-0">Shipping Address</h5>
                                                     </div>
                                                     <div class="card-body">
-                                                        <address>4299 Express Lane<br>
-                                                            Sarasota, <br>FL 00000 USA <br>Phone: 1.000.000.0000</address>
-                                                        <p>Sarasota</p>
+                                                        <h5 class="font-sm text-grey-50">Name:{{ucwords($order->shipping->firstname.' '.$order->shipping->lastname)}}</h5>
+                                                        <p class="font-sm text-grey-50">Mobile:{{$order->shipping->mobile}}</p>
+                                                        <p class="font-sm text-grey-50">Email:{{$order->shipping->email}}</p>
+                                                        <p class="text-grey-3">Address:{{ucwords($order->shipping->address)}}</p>
+                                                        <p class="text-grey-3">City:{{ucwords($order->shipping->city)}}</p>
+                                                        <p class="text-grey-3">District:{{ucwords($order->shipping->district)}}</p>
+                                                        <p class="text-grey-3">Thana:{{ucwords($order->shipping->thana)}}</p>
                                                         <a href="#" class="btn-small">Edit</a>
                                                     </div>
                                                 </div>
                                             </div>
+                                            @endif--}}
+
+
+
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="change-password" role="tabpanel" aria-labelledby="account-detail-tab" wire:ignore.self>
@@ -261,14 +252,14 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         @if($user->profile->image)
-                                                            <img src="{{asset('frontend/assets/images/profile')}}/{{$user->profile->image}}" alt="">
+                                                            <img src="{{asset('frontend/assets/images/profile')}}/{{$user->profile->image}}" alt="" width="200">
                                                             @else
                                                             <img src="{{asset('frontend/assets/images/profile/avatar-7.jpg')}}" alt="">
                                                         @endif
                                                     </div>
-                                                    <div class="col-md-8">
+                                                    <div class="col-md-9">
                                                         <div class="table-responsive">
                                                             <table class="table">
                                                                 <thead>

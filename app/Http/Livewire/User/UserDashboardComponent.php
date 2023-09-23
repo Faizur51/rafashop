@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\User;
 
+use App\Models\Order;
 use App\Models\Profile;
 use App\Models\User;
 use Carbon\Carbon;
@@ -54,6 +55,7 @@ public function mount(){
     $this->zipcode=$user->profile->zipcode;
 
 
+
 }
 
 public function updateProfile(){
@@ -70,7 +72,7 @@ public function updateProfile(){
        $imageName=Carbon::now()->timestamp.'.'.$this->newimage->extension();
         $img = Image::make($this->newimage);
 
-        $img->resize(1200,735);
+        $img->resize(70,70);
         $img->save('frontend/assets/images/profile/'.$imageName);
 
         $user->profile->image=$imageName;
@@ -128,6 +130,10 @@ public function changePassword(){
 
         $user=User::find(Auth::user()->id);
 
-        return view('livewire.user.user-dashboard-component',['user'=>$user]);
+        $orders=Order::orderBy('id','desc')->where('user_id',Auth::user()->id)->paginate(10);
+
+        $user=User::where('id',Auth::user()->id)->first();
+
+        return view('livewire.user.user-dashboard-component',['user'=>$user,'orders'=>$orders,'user'=>$user]);
     }
 }

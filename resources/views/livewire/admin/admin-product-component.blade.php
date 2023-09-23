@@ -4,16 +4,6 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="tab-content dashboard-content">
-                        <div class="tab-pane fade" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5 class="mb-0">Hello Rosie! </h5>
-                                </div>
-                                <div class="card-body">
-                                    <p>From your account dashboard. you can easily check &amp; view your <a href="#">recent orders</a>, manage your <a href="#">shipping and billing addresses</a> and <a href="#">edit your password and account details.</a></p>
-                                </div>
-                            </div>
-                        </div>
                         <div class="tab-pane fade active show" id="orders" role="tabpanel" aria-labelledby="orders-tab">
                             <div class="card">
                                 @if(session()->has('message'))
@@ -31,13 +21,12 @@
                                         <div class="col-md-2">
                                             <a href="{{route('admin.product.add')}}" class="btn btn-sm">Add Product</a>
                                         </div>
-
                                     </div>
 
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table" style="border-bottom: 1px solid #dee2e6">
                                             <thead>
                                             <tr>
                                                 <th>Sl</th>

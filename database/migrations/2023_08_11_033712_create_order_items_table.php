@@ -19,6 +19,7 @@ return new class extends Migration
             $table->bigInteger('order_id')->unsigned();
             $table->decimal('price');
             $table->integer('quantity');
+            $table->boolean('rstatus')->default(false);
             $table->timestamps();
             $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete();
             $table->foreign('order_id')->references('id')->on('orders')->cascadeOnDelete();

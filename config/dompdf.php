@@ -252,7 +252,7 @@ return array(
          *
          * If this setting is set to true, DOMPDF will access remote sites for
          * images and CSS files as required.
-         * This is required for part of test case www/test/image_variants.html through www/examples.php
+         * This is required for part of test.blade.php case www/test.blade.php/image_variants.html through www/examples.php
          *
          * Attention!
          * This can be a security risk, in particular in combination with DOMPDF_ENABLE_PHP and
